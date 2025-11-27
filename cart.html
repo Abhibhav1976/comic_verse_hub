@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your shopping cart">
+    <title>Shopping Cart - ComicVerse Hub</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-logo" aria-label="ComicVerse Hub Home">
+                <i class="fas fa-book-open" aria-hidden="true"></i>
+                <span>ComicVerse</span>
+            </a>
+            
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu" role="menubar">
+                <li role="none"><a href="./index.html" class="nav-link" role="menuitem">Home</a></li>
+                <li role="none"><a href="./browse.html" class="nav-link" role="menuitem">Browse</a></li>
+                <li role="none"><a href="./cart.html" class="nav-link active" role="menuitem">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                    Cart
+                    <span class="cart-badge" id="cartBadge" aria-label="Items in cart">0</span>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Cart Header -->
+    <section class="cart-header">
+        <div class="container">
+            <h1>Shopping Cart</h1>
+            <p id="cartSubtitle">Review your items before checkout</p>
+        </div>
+    </section>
+
+    <!-- Cart Content -->
+    <section class="cart-section" aria-label="Shopping cart contents">
+        <div class="container">
+            <div class="cart-layout">
+                <!-- Cart Items -->
+                <div class="cart-items" id="cartItems" data-testid="cart-items">
+                    <!-- Cart items will be dynamically inserted -->
+                </div>
+
+                <!-- Cart Summary -->
+                <aside class="cart-summary" id="cartSummary" data-testid="cart-summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotalAmount" data-testid="subtotal-amount">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax (5%):</span>
+                        <span id="taxAmount" data-testid="tax-amount">$0.00</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-row summary-total">
+                        <span>Total:</span>
+                        <span id="totalAmount" data-testid="total-amount">$0.00</span>
+                    </div>
+                    <button class="btn btn-primary btn-block" id="checkoutBtn" data-testid="checkout-btn" disabled>
+                        <i class="fas fa-lock" aria-hidden="true"></i>
+                        Proceed to Checkout
+                    </button>
+                </aside>
+            </div>
+
+            <!-- Empty Cart State -->
+            <div class="empty-cart" id="emptyCart" style="display: none;" data-testid="empty-cart">
+                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                <h2>Your Cart is Empty</h2>
+                <p>Looks like you haven't added any comics yet</p>
+                <a href="./browse.html" class="btn btn-primary" data-testid="browse-comics-btn">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                    Browse Comics
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ComicVerse Hub</h3>
+                    <p>Your ultimate destination for digital comics. Discover, collect, and enjoy thousands of titles from your favorite publishers.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./browse.html">Browse Comics</a></li>
+                        <li><a href="./cart.html">Shopping Cart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>About</h4>
+                    <p>Built with passion for comic book enthusiasts. A hackathon project showcasing modern web development.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ComicVerse Hub. All rights reserved. Built with <i class="fas fa-heart" aria-hidden="true"></i> for comic fans.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal" role="dialog" aria-labelledby="checkoutModalTitle" aria-modal="true" style="display: none;">
+        <div class="modal-overlay" id="checkoutOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="checkoutModalTitle">Order Confirmed!</h3>
+            </div>
+            <div class="modal-body">
+                <i class="fas fa-check-circle success-icon" aria-hidden="true"></i>
+                <p><strong>Thank you for your order!</strong></p>
+                <p>Your simulated order has been placed successfully. In a real application, you would receive a confirmation email with order details.</p>
+                <div class="order-details">
+                    <p><strong>Order Total:</strong> <span id="orderTotal">$0.00</span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="./browse.html" class="btn btn-primary" data-testid="continue-browsing-btn">Continue Browsing</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="alert" aria-live="polite" aria-atomic="true">
+        <div class="toast-content">
+            <i class="toast-icon fas fa-check-circle" aria-hidden="true"></i>
+            <span class="toast-message" id="toastMessage"></span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./js/comics.js"></script>
+    <script src="./js/cart.js"></script>
+</body>
+</html>
